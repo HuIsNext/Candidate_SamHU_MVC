@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Candidate_SamHU_MVC.props" />
+</Project>
