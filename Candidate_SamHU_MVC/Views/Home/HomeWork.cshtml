@@ -2,46 +2,78 @@
 
 @{
     ViewData["Title"] = "HomeWork";
+    //網頁狀態
+    var status = 0;
+
+    //確認list Index
+    int indexNum = 0;
 }
+
 
 <h1>HomeWork</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bday)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bday)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-12 mt-3">
+            <form asp-action="HomeWorkCreate" method="post">
+                <fieldset>
+                    <legend>基本資料輸入</legend>
+                    <div class="mb-3">
+                        <label for="txtName" class="form-label">姓名:</label>
+                        <input type="text" id="txtName" name="Name" class="form-control" placeholder="請輸入名字" autocomplete="off" />&nbsp;
+                        <label for="txtAGE" class="form-label">年齡:</label>
+                        <input type="text" name="Age" id="txtAGE" class="form-control" placeholder="請輸入年齡" autocomplete="off" />&nbsp;
+                        <label for="txtBday" class="form-label">生日:</label>
+                        <input type="text" name="Bday" id="datepicker" class="form-control" validchars="1234567890/" placeholder="請輸入生日" autocomplete="off" />&nbsp;
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" id="btnSend" class="btn btn-primary">送出檔案</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-md-9 col-sm-12 mt-3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Bday)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-row="@indexNum">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bday)
+                            </td>
+                            <td>
+                             @*@Html.ActionLink("Edit", "HomeWorkEdit", new { index = indexNum  })*@
+                                <a class="btnEdit" onclick="test()">Edit</a>
+                                @Html.ActionLink("Delete", "HomeWorkDelete", new { index = indexNum  })
+                            </td>
+                        </tr>
+                        indexNum += 1;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

@@ -1,44 +1,37 @@
 ﻿using Candidate_SamHU_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Candidate_SamHU_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+        private static List<PersonalFileModel> files;
         public IActionResult HomeWork()
         {
-            List<PersonalFileModel> files = new List<PersonalFileModel>()
-            {
-                new PersonalFileModel{ Name="Sam",Age=18,Bday=Convert.ToDateTime("02/18/2023")},
-            };
+            files = new List<PersonalFileModel>()
+            { new PersonalFileModel{ Name="Sam",Age=18,Bday=Convert.ToDateTime("02/18/2023")}};
 
             return View(files);
         }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult HomeWorkEdit(int index)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        public IActionResult HomeWorkDelete(int index)
+        {
+            files.RemoveAt(index);
+            return View("HomeWork", files);
+        }
+
+        [HttpPost]
+        public IActionResult HomeWorkCreate(PersonalFileModel model)
+        {               
+            files.Add(model);
+            return View("HomeWork", files);
         }
     }
 }
