@@ -16,6 +16,7 @@ $(".btnEdit").click(function (e) {
     let index2 = document.querySelector(`[data-row="${num}"] :first-child`).textContent
     let index3 = document.querySelector(`[data-row="${num}"] :nth-child(2)`).textContent
     let index4 = document.querySelector(`[data-row="${num}"] :nth-child(3)`).textContent
+
     $("#txtName").val(index2.trim());
     $("#txtAGE").val(index3.trim());
     $("#datepicker").val(index4.trim());
