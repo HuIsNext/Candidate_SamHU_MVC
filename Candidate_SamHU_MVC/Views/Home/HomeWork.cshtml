@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 col-sm-12 mt-3">
-            <form asp-action="HomeWorkCreate" method="post">
+            <form asp-action="HomeWorkCreate" id="form1" method="post">
                 <fieldset>
                     <legend>基本資料輸入</legend>
                     <div class="mb-3">
@@ -25,6 +25,7 @@
                         <input type="text" name="Age" id="txtAGE" class="form-control" placeholder="請輸入年齡" autocomplete="off" />&nbsp;
                         <label for="txtBday" class="form-label">生日:</label>
                         <input type="text" name="Bday" id="datepicker" class="form-control" validchars="1234567890/" placeholder="請輸入生日" autocomplete="off" />&nbsp;
+                        <input type="hidden" name="ID" id="txtID" class="form-control" value="" autocomplete="off"/>&nbsp;
                     </div>
                     <div class="mb-3">
                         <button type="submit" id="btnSend" class="btn btn-primary">送出檔案</button>
@@ -52,7 +53,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr data-row="@indexNum">
+                        <tr class="addTR" data-row="@indexNum">
                             <td>
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
@@ -63,8 +64,7 @@
                                 @Html.DisplayFor(modelItem => item.Bday)
                             </td>
                             <td>
-                             @*@Html.ActionLink("Edit", "HomeWorkEdit", new { index = indexNum  })*@
-                                <a class="btnEdit" onclick="test()">Edit</a>
+                                <a class="btnEdit mx-2"data-index="@indexNum" >Edit</a>
                                 @Html.ActionLink("Delete", "HomeWorkDelete", new { index = indexNum  })
                             </td>
                         </tr>

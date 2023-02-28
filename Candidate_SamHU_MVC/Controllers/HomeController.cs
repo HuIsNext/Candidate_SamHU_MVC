@@ -12,13 +12,19 @@ namespace Candidate_SamHU_MVC.Controllers
         public IActionResult HomeWork()
         {
             files = new List<PersonalFileModel>()
-            { new PersonalFileModel{ Name="Sam",Age=18,Bday=Convert.ToDateTime("02/18/2023")}};
+            { new PersonalFileModel{ Name="Sam",Age=18,Bday=Convert.ToDateTime("02/18/2023") },
+              new PersonalFileModel{ Name="Sam2",Age=18,Bday=Convert.ToDateTime("02/18/2023") }
+            };
 
             return View(files);
         }
-        public IActionResult HomeWorkEdit(int index)
+        [HttpPost]
+        public IActionResult HomeWorkEdit(PersonalFileModel model)
         {
-            return View();
+            files[model.ID].Name = model.Name;
+            files[model.ID].Age = model.Age;
+            files[model.ID].Bday = model.Bday;
+            return View("HomeWork", files);
         }
 
         public IActionResult HomeWorkDelete(int index)
